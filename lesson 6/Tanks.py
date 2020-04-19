@@ -21,10 +21,10 @@ class Tank():
         print("Здоровье: " + str(self.health))
 
     def shot(self, enemy):
-        if self.damage >= enemy.health:
+        if enemy.health <= 0:
             enemy.health = 0
             print('\n' + "Танк " + enemy.model + " уничтожен")
-        if self.damage < enemy.health:
+        if enemy.health > 0:
             enemy.health_down(self.damage)
             print('\n' + self.model + ": ")
             print("Попали!!! У танка " + enemy.model + " осталось " + str(enemy.health) + " здоровья!")
@@ -45,3 +45,17 @@ class superTank(Tank):
             self.health = self.health - enemy_damage
         print('\n' + self.model + ": ")
         print("Осталось " + str(self.health) + " здоровья")
+
+class invisibleTank(Tank): 
+    def __init__(self, model, armor, min_damage, max_damage, health, invisability):
+        self.model = model
+        self.armor = armor
+        self.damage = random.randint(min_damage, max_damage)
+        self.health = health
+        self.invisability = invisability
+
+    def health_down(self, enemy_damage):
+        if self.invisability == False:
+            self.health = self.health - enemy_damage
+            print('\n' + self.model + ": ")
+            print("Осталось " + str(self.health) + " здоровья")
